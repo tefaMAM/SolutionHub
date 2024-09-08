@@ -1,0 +1,63 @@
+o(n^2)
+class Solution {
+    public String longestPalindrome(String s) {
+        int n=s.length();
+        if(n<2){return s;}
+        int start=0,maxLen=1;
+        for (int i = 0; i < s.length(); i++)
+        {
+                //odd s, i,i
+                int len1=expandAround(s,i,i);
+                int len2=expandAround(s,i,i+1);
+
+                int len=Math.max(len1, len2);
+                if(maxLen<len){
+                    maxLen=len;
+                    start=i-(maxLen-1)/2;
+                }
+        }
+        return s.substring(start, start+maxLen);
+    }
+
+    public int expandAround(String s, int l, int r) {
+        while(l>=0&&r<s.length()&&s.charAt(l)==s.charAt(r)){
+            l--;
+            r++;
+       }
+       return r-l-1;
+    }
+}
+brute force
+public static String LongestPalindromeSubstring(String x) {
+        int max = 0;  // Track the maximum palindrome length
+        HashMap<Integer, String> hash = new HashMap<>();  // To store palindromes with their lengths
+
+        // Iterate through all possible substrings
+        for (int i = 0; i < x.length(); i++) {
+            for (int j = i + 1; j <= x.length(); j++) {  // j goes from i+1 to x.length()
+                String sub = x.substring(i, j);  // Get substring from i to j-1
+                if (isPalindrome(sub)) {  // Check if the substring is a palindrome
+                    int length = sub.length();  // Calculate the length of the palindrome
+                    if (length > max) {  // Update max length if this palindrome is longer
+                        max = length;
+                        hash.put(max, sub);  // Store the palindrome with its length as key
+                    }
+                }
+            }
+        }
+
+        return hash.get(max);  // Return the longest palindrome stored
+    }
+
+    // Helper method to check if a given string is a palindrome
+    public static boolean isPalindrome(String substring) {
+        int i = 0, j = substring.length() - 1;
+        while (i < j) {
+            if (substring.charAt(i) != substring.charAt(j)) {
+                return false;  
+            }
+            i++;
+            j--;
+        }
+        return true;  
+    }
