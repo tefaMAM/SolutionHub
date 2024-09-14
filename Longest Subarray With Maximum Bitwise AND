@@ -1,0 +1,23 @@
+class Solution {
+    public int longestSubarray(int[] nums) {
+           // Find the maximum value in the array
+        int max = Arrays.stream(nums).max().getAsInt();
+        
+        int c = 0;
+        int maxLength = 0;
+        
+        // Iterate through the array to find the longest subarray of max values
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == max) {
+                c++;  // Count contiguous max values
+            } else {
+                maxLength = Math.max(maxLength, c);  // Update maxLength when the subarray ends
+                c = 0;  // Reset count
+            }
+        }
+        // Handle the case when the longest subarray is at the end of the array
+        maxLength = Math.max(maxLength, c);
+        
+        return maxLength;
+    }
+}
