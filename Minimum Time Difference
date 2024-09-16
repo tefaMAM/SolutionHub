@@ -1,0 +1,32 @@
+class Solution {
+    public int findMinDifference(List<String> timePoints) {
+ ArrayList<Integer> list=new ArrayList<>();
+            for (String x : timePoints) {
+                int hours = Integer.parseInt(x.substring(0, 2)) * 60;  // Convert hours to minutes
+                int minutes = Integer.parseInt(x.substring(3, 5));     // Extract minutes
+                int totalMinutes = hours + minutes;
+                list.add(totalMinutes);
+            }
+            
+            // Sort the list
+            Collections.sort(list);
+    
+            // Find the minimum difference between adjacent times
+            int min = Integer.MAX_VALUE;  // Initialize min with a large value
+    
+            for (int i = 0; i < list.size() - 1; i++) {
+                int temp = list.get(i + 1) - list.get(i);
+                if (temp < min) {
+                    min = temp;
+                }
+            }
+    
+            // Also check the difference between the last and the first time across midnight
+            int crossMidnightDiff = (1440 - list.get(list.size() - 1)) + list.get(0);
+            if (crossMidnightDiff < min) {
+                min = crossMidnightDiff;
+            }
+            
+            return min;
+    }
+}
