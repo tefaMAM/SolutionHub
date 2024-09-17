@@ -1,0 +1,22 @@
+class Solution {
+    public String[] uncommonFromSentences(String s1, String s2) {
+       // Step 1: Concatenate the two strings
+        s1 = s1.concat(" ").concat(s2); // add a space between sentences
+        // Step 2: Split the combined string into words
+        String[] words = s1.split(" ");
+        // Step 3: Create a HashMap to count occurrences of each word
+        Map<String, Integer> hashmap = new HashMap<>();
+        for (String word : words) {
+            hashmap.put(word, hashmap.getOrDefault(word, 0) + 1);
+        }
+        // Step 4: Collect words that appear exactly once
+        List<String> uncommonWords = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : hashmap.entrySet()) {
+            if (entry.getValue() == 1) {
+                uncommonWords.add(entry.getKey());
+            }
+        }
+        // Step 5: Convert the list to an array and return
+        return uncommonWords.toArray(new String[0]);
+    }
+}
