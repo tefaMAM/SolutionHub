@@ -1,0 +1,23 @@
+class Solution {
+    public Node removeDuplicates(Node head) {
+    if (head == null || head.next == null) {
+        return head; 
+    }
+
+    boolean[] arr = new boolean[1000000];
+    Node tempHead = head;
+    Node tempTraverse = head;
+    arr[head.data] = true; 
+
+    head = head.next; 
+    while (head != null) {
+        if (!arr[head.data]) {
+            arr[head.data] = true; 
+            tempTraverse.next = head; 
+            tempTraverse = tempTraverse.next; 
+        }
+        head = head.next; 
+    }
+    tempTraverse.next = null;
+    return tempHead; 
+}
