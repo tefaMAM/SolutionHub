@@ -1,0 +1,55 @@
+class twoStacks {
+    int stk[];
+    int top1;
+    int top2;
+    int base2;
+    int stk1Max=99;
+    
+    twoStacks() {
+        stk=new int[200];
+        top1=-1;
+        top2=-1;
+        base2=100;
+    }
+
+    // Function to push an integer into the stack1.
+    void push1(int x) {
+        if(top1==stk1Max)
+            return;
+        stk[++top1]=x;    
+    }
+
+    // Function to push an integer into the stack2.
+    void push2(int x) {
+        if(top2==stk.length-1)
+            return;
+        if(top2==-1)
+            top2=base2;
+        else
+            top2++;
+        stk[top2]=x; 
+    }
+
+    // Function to remove an element from top of the stack1.
+    int pop1() {
+        if(top1==-1)
+            return -1;
+        return stk[top1--];    
+    }
+
+    // Function to remove an element from top of the stack2.
+    int pop2() {
+        int ele;
+        if(top2==-1)
+            return -1;
+        if(top2==base2)
+        {
+            ele=stk[top2];
+            top2=-1;
+            return ele;
+        }
+            
+        return stk[top2--];  
+    }
+}
+
