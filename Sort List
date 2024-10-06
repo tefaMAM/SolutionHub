@@ -1,0 +1,60 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    // Function to sort the linked list using Merge Sort
+    public ListNode sortList (ListNode head) {
+        // Base case: if the list is empty or contains just one node, return it (already sorted)
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Find the middle of the list to split it into two halves
+        ListNode middle = findMiddle(head);
+        ListNode secondHalf = middle.next;  // Start of the second half
+        middle.next = null;  // Break the link to split the list
+
+        // Recursively sort each half
+        ListNode leftSorted = sortList(head);
+        ListNode rightSorted = sortList(secondHalf);
+
+        // Merge the two sorted halves and return the result
+        return merge(leftSorted, rightSorted);
+    }
+
+    // Helper function to find the middle of the linked list
+    public ListNode findMiddle(ListNode head) {
+        ListNode slow = head, fast = head;
+
+        // Use slow and fast pointers to find the middle node
+        while (fast != null && fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;  // slow will now point to the middle node
+    }
+
+    // Helper function to merge two sorted linked lists
+    public ListNode merge(ListNode first, ListNode second) {
+        // If one of the lists is empty, return the other list
+        if (first == null) return second;
+        if (second == null) return first;
+
+        // Compare the values of the two lists and merge recursively
+        if (first.val <= second.val) {
+            first.next = merge(first.next, second);
+            return first;
+        } else {
+            second.next = merge(first, second.next);
+            return second;
+        }
+    }
+}
