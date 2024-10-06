@@ -1,0 +1,42 @@
+class Solution {
+     public  int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>(); // Use Integer stack
+        
+        for (int i = 0; i < tokens.length; i++) {
+            String currentToken = tokens[i]; // Access the string token
+            
+            if (isOperator(currentToken)) {
+                // Pop the two topmost elements
+                int top = stack.pop();
+                int preTop = stack.pop();
+                // Evaluate and push the result back onto the stack
+                int newTop = evaluate(preTop, top, currentToken);
+                stack.push(newTop);
+            } else {
+                // Convert string token to integer and push onto the stack
+                stack.push(Integer.parseInt(currentToken));
+            }
+        }
+        return stack.pop(); // Return the final result from the stack
+    }
+
+    public int evaluate(int preTop, int top, String operator) {
+        switch (operator) {
+            case "+":
+                return preTop + top;
+            case "-":
+                return preTop - top;
+            case "*":
+                return preTop * top;
+            case "/":
+                return preTop / top;
+            default:
+                throw new IllegalArgumentException("Invalid operator: " + operator);
+        }
+    }
+
+    public boolean isOperator(String op) {
+        return op.equals("+") || op.equals("-") || op.equals("*") || op.equals("/");
+    }
+
+}
