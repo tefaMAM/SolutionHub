@@ -1,0 +1,30 @@
+class Solution {
+     Node compute(Node head){
+        if(head.next==null){return head;}
+        head=reverse(head);
+        Node prev=head,max=head.next;
+        int maxNumber=prev.data;
+        while (max!=null){
+            if(max.data >= maxNumber){
+                maxNumber=max.data;
+                prev.next=max;
+                prev=prev.next;
+            }
+            max=max.next;
+        }
+        prev.next=null;
+        head=reverse(head);
+        return head;
+    }
+     Node reverse(Node head) {
+        Node prev=null,cur=head;
+        while (cur!=null) {
+            Node next=cur.next;
+            cur.next=prev;
+            prev=cur;
+            cur=next;
+        }
+        head=prev;
+        return head;
+    }
+}
