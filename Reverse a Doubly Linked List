@@ -1,0 +1,26 @@
+class Solution {
+    public DLLNode reverseDLL(DLLNode head) {
+    if (head == null || head.next == null) {
+        return head; // empty list or single node list
+    }
+
+    DLLNode node = head;
+    DLLNode temp = null;
+
+    // Traverse the list and swap next and prev for all nodes
+    while (node != null) {
+        temp = node.prev;   // Save the previous node
+        node.prev = node.next; // Reverse the prev pointer
+        node.next = temp;   // Reverse the next pointer
+        node = node.prev;   // Move to the next node (which is prev due to reversal)
+    }
+
+    // After the loop, temp will be pointing to the new head
+    if (temp != null) {
+        head = temp.prev; // Set the new head
+    }
+
+    return head;
+}
+
+}
