@@ -1,0 +1,13 @@
+static ArrayList<Integer> leaders(int n, int arr[]) {
+        ArrayList<Integer>array=new ArrayList<>();
+        int maxRight=arr[n-1];
+        array.add(maxRight);
+        for (int i = n-2; i >= 0; i--){
+            if(arr[i]>=maxRight){
+                maxRight=arr[i];
+                array.add(maxRight);
+            }
+        }
+        Collections.reverse(array);
+        return array;
+    }
