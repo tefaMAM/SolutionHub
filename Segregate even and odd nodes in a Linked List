@@ -1,0 +1,45 @@
+class Solution {
+    Node divide(Node head) {
+        if (head == null) {
+            return null;  
+        }
+
+        Node hEven = null, curEven = null;
+        Node hOdd = null, curOdd = null;
+
+        while (head != null) {
+            if (head.data % 2 == 0) {
+                if (hEven == null) {
+                    hEven = head;
+                    curEven = head;
+                } else {
+                    curEven.next = head;
+                    curEven = curEven.next;
+                }
+            } else {
+                if (hOdd == null) {
+                    hOdd = head;
+                    curOdd = head;
+                } else {
+                    curOdd.next = head;
+                    curOdd = curOdd.next;
+                }
+            }
+            head = head.next;
+        }
+
+        if (hEven == null) {
+            return hOdd;
+        }
+
+        if (hOdd == null) {
+            curEven.next = null;
+            return hEven;
+        }
+
+        curEven.next = hOdd;
+        curOdd.next = null; 
+
+        return hEven;
+    }
+}
